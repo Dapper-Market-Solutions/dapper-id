@@ -85,11 +85,24 @@
   .hero {
     position: relative;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
     padding: 120px 48px 80px;
     overflow: hidden;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero-visual {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .hero-grid-bg {
@@ -892,7 +905,8 @@
   @media (max-width: 900px) {
     nav { padding: 20px 24px; }
     section { padding: 72px 24px; }
-    .hero { padding: 100px 24px 60px; }
+    .hero { padding: 100px 24px 60px; grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
     .stat-bar { grid-template-columns: repeat(2, 1fr); padding: 40px 24px; }
     .problem-layout, .data-inner { grid-template-columns: 1fr; gap: 48px; }
     .steps, .verticals-grid { grid-template-columns: 1fr; }
@@ -933,27 +947,55 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-grid-bg"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-glow-gold"></div>
+  <div class="hero-grid-bg" style="grid-column:1/-1;grid-row:1/-1;"></div>
+  <div class="hero-glow" style="grid-column:1/-1;grid-row:1/-1;"></div>
+  <div class="hero-glow-gold" style="grid-column:1/-1;grid-row:1/-1;"></div>
 
-  <p class="hero-eyebrow"><span class="pulse-dot"></span>Website Visitor Intelligence — Powered by Dapper Market Solutions</p>
+  <div class="hero-content">
+    <p class="hero-eyebrow"><span class="pulse-dot"></span>Website Visitor Intelligence — Powered by Dapper Market Solutions</p>
 
-  <h1 class="hero-headline">
-    YOUR WEBSITE IS <span class="gold">LEAKING</span><br>
-    <span class="outline">MONEY.</span><br>
-    WE PLUG THE HOLE.
-  </h1>
+    <h1 class="hero-headline">
+      YOUR WEBSITE IS <span class="gold">LEAKING</span><br>
+      <span class="outline">MONEY.</span><br>
+      WE PLUG THE HOLE.
+    </h1>
 
-  <p class="hero-subhead">
-    <strong>97% of your website visitors leave without filling out a form.</strong>
-    They came. They looked. They left. And you had no idea who they were.<br><br>
-    Dapper ID™ changes that. We tell you <strong>exactly who visited</strong> — their name, email, and phone number — so your team can follow up before your competitor even knows they exist.
-  </p>
+    <p class="hero-subhead">
+      <strong>97% of your website visitors leave without filling out a form.</strong>
+      They came. They looked. They left. And you had no idea who they were.<br><br>
+      Dapper ID™ changes that. We tell you <strong>exactly who visited</strong> — their name, email, and phone number — so your team can follow up before your competitor even knows they exist.
+    </p>
 
-  <div class="hero-cta-group">
-    <a href="https://bit.ly/dmsinterview" class="btn-primary">See It In Action →</a>
-    <a href="#how-it-works" class="btn-ghost">How it works ↓</a>
+    <div class="hero-cta-group">
+      <a href="https://bit.ly/dmsinterview" class="btn-primary">See It In Action →</a>
+      <a href="#roi-calc" class="btn-ghost">See what you're missing ↓</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="profile-card" style="opacity:0; animation: fadeUp 0.8s ease 1s forwards; max-width:380px; width:100%;">
+      <div class="profile-header">
+        <div class="profile-avatar">JD</div>
+        <div>
+          <div class="profile-name">James Donovan</div>
+          <div class="profile-title">Visited: Pricing Page — 4 min ago</div>
+        </div>
+      </div>
+      <div class="profile-fields">
+        <div class="pf-row"><span class="pf-key">Email</span><span class="pf-val highlight">j.donovan@gmail.com</span></div>
+        <div class="pf-row"><span class="pf-key">Mobile</span><span class="pf-val highlight">(734) 555-0182</span></div>
+        <div class="pf-row"><span class="pf-key">Address</span><span class="pf-val">4821 Maple Dr, Ann Arbor, MI</span></div>
+        <div class="pf-row"><span class="pf-key">Income</span><span class="pf-val">$150K – $200K</span></div>
+        <div class="pf-row"><span class="pf-key">Net Worth</span><span class="pf-val">$500K – $750K</span></div>
+      </div>
+      <div class="profile-footer">
+        <span class="match-score">MATCH CONFIDENCE</span>
+        <div>
+          <div class="match-bar"><div class="match-fill"></div></div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);margin-top:4px;text-align:right;">94%</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1071,6 +1113,56 @@
   </div>
 </section>
 
+<!-- ROI CALCULATOR -->
+<section class="calc-section" id="roi-calc">
+  <div class="calc-inner">
+    <div class="calc-header reveal">
+      <span class="section-label">The Math Doesn't Lie</span>
+      <h2>WHAT'S IT <span style="color:var(--gold)">WORTH</span><br>TO KNOW?</h2>
+      <p>Slide the numbers. See what you're leaving on the table every single month — and what it costs to stop the bleeding.</p>
+    </div>
+
+    <div class="calc-card reveal">
+      <div class="calc-inputs">
+        <div class="calc-field">
+          <label>Monthly Website Visitors</label>
+          <input type="range" id="calcVisitors" min="500" max="50000" step="500" value="5000" oninput="updateCalc()">
+          <div class="calc-value" id="calcVisitorsVal">5,000</div>
+          <div class="calc-value-sub">visitors per month</div>
+        </div>
+        <div class="calc-field">
+          <label>Your Average Deal Value</label>
+          <input type="range" id="calcDeal" min="100" max="25000" step="100" value="2000" oninput="updateCalc()">
+          <div class="calc-value" id="calcDealVal">$2,000</div>
+          <div class="calc-value-sub">per closed sale</div>
+        </div>
+      </div>
+
+      <div class="calc-divider"></div>
+
+      <div class="calc-results">
+        <div class="calc-result-item">
+          <span class="calc-result-number" id="calcIdentified">1,500</span>
+          <span class="calc-result-label">Visitors Identified</span>
+        </div>
+        <div class="calc-result-item">
+          <span class="calc-result-number" id="calcLeads">15</span>
+          <span class="calc-result-label">Deals Closed (1%)</span>
+        </div>
+        <div class="calc-result-item">
+          <span class="calc-result-number" id="calcRevenue">$30K</span>
+          <span class="calc-result-label">New Revenue / Month</span>
+        </div>
+      </div>
+
+      <div class="calc-punchline">
+        <div class="calc-punchline-big">ALL FOR LESS THAN A NIGHT OUT WITH THE FAMILY.</div>
+        <p>Your Dapper ID™ investment is a fraction of what you'd spend on dinner, bowling, and ice cream. <strong>Except this pays you back — every single month.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- WHAT YOU GET -->
 <section class="data-section">
   <div class="data-inner">
@@ -1140,56 +1232,6 @@
           <div class="match-bar"><div class="match-fill"></div></div>
           <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);margin-top:4px;text-align:right;">94%</div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ROI CALCULATOR -->
-<section class="calc-section">
-  <div class="calc-inner">
-    <div class="calc-header reveal">
-      <span class="section-label">The Math Doesn't Lie</span>
-      <h2>WHAT'S IT <span style="color:var(--gold)">WORTH</span><br>TO KNOW?</h2>
-      <p>Slide the numbers. See what you're leaving on the table every single month — and what it costs to stop the bleeding.</p>
-    </div>
-
-    <div class="calc-card reveal">
-      <div class="calc-inputs">
-        <div class="calc-field">
-          <label>Monthly Website Visitors</label>
-          <input type="range" id="calcVisitors" min="500" max="50000" step="500" value="5000" oninput="updateCalc()">
-          <div class="calc-value" id="calcVisitorsVal">5,000</div>
-          <div class="calc-value-sub">visitors per month</div>
-        </div>
-        <div class="calc-field">
-          <label>Your Average Deal Value</label>
-          <input type="range" id="calcDeal" min="100" max="25000" step="100" value="2000" oninput="updateCalc()">
-          <div class="calc-value" id="calcDealVal">$2,000</div>
-          <div class="calc-value-sub">per closed sale</div>
-        </div>
-      </div>
-
-      <div class="calc-divider"></div>
-
-      <div class="calc-results">
-        <div class="calc-result-item">
-          <span class="calc-result-number" id="calcIdentified">1,500</span>
-          <span class="calc-result-label">Visitors Identified</span>
-        </div>
-        <div class="calc-result-item">
-          <span class="calc-result-number" id="calcLeads">15</span>
-          <span class="calc-result-label">Deals Closed (1%)</span>
-        </div>
-        <div class="calc-result-item">
-          <span class="calc-result-number" id="calcRevenue">$30K</span>
-          <span class="calc-result-label">New Revenue / Month</span>
-        </div>
-      </div>
-
-      <div class="calc-punchline">
-        <div class="calc-punchline-big">ALL FOR LESS THAN A NIGHT OUT WITH THE FAMILY.</div>
-        <p>Your Dapper ID™ investment is a fraction of what you'd spend on dinner, bowling, and ice cream. <strong>Except this pays you back — every single month.</strong></p>
       </div>
     </div>
   </div>
