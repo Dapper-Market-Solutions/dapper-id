@@ -533,6 +533,167 @@
     background: var(--gold);
   }
 
+  /* -- CALCULATOR SECTION -- */
+  .calc-section {
+    background: linear-gradient(180deg, rgba(0,26,48,0.5) 0%, var(--dark) 100%);
+    border-top: 1px solid rgba(0,66,124,0.2);
+    border-bottom: 1px solid rgba(0,66,124,0.2);
+  }
+
+  .calc-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .calc-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .calc-header p {
+    font-size: 18px;
+    color: var(--gray);
+    max-width: 560px;
+    margin: 0 auto;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .calc-card {
+    background: rgba(0,66,124,0.1);
+    border: 1px solid rgba(0,66,124,0.3);
+    padding: 48px;
+  }
+
+  .calc-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 40px;
+  }
+
+  .calc-field label {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .calc-field input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    background: rgba(0,66,124,0.4);
+    outline: none;
+    border-radius: 0;
+    margin-bottom: 8px;
+  }
+
+  .calc-field input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--gold);
+    border: none;
+    cursor: pointer;
+  }
+
+  .calc-field input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--gold);
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+  }
+
+  .calc-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .calc-value-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--gray);
+    margin-top: 4px;
+  }
+
+  .calc-divider {
+    height: 1px;
+    background: rgba(0,66,124,0.3);
+    margin-bottom: 40px;
+  }
+
+  .calc-results {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+
+  .calc-result-item {
+    text-align: center;
+    padding: 24px 16px;
+    background: rgba(0,66,124,0.08);
+    border: 1px solid rgba(0,66,124,0.2);
+  }
+
+  .calc-result-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 44px;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+  }
+
+  .calc-result-label {
+    font-size: 12px;
+    color: var(--gray);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 8px;
+    display: block;
+  }
+
+  .calc-punchline {
+    text-align: center;
+    padding: 28px 32px;
+    background: rgba(255,203,5,0.06);
+    border: 1px solid rgba(255,203,5,0.2);
+  }
+
+  .calc-punchline-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--gold);
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .calc-punchline p {
+    font-size: 15px;
+    color: var(--gray);
+    font-weight: 300;
+  }
+
+  .calc-punchline p strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  @media (max-width: 900px) {
+    .calc-card { padding: 32px 24px; }
+    .calc-inputs { grid-template-columns: 1fr; gap: 24px; }
+    .calc-results { grid-template-columns: 1fr; }
+  }
+
   /* -- WHO IT'S FOR -- */
   .verticals-section { max-width: 1200px; margin: 0 auto; }
   .verticals-header { text-align: center; margin-bottom: 60px; }
@@ -984,6 +1145,56 @@
   </div>
 </section>
 
+<!-- ROI CALCULATOR -->
+<section class="calc-section">
+  <div class="calc-inner">
+    <div class="calc-header reveal">
+      <span class="section-label">The Math Doesn't Lie</span>
+      <h2>WHAT'S IT <span style="color:var(--gold)">WORTH</span><br>TO KNOW?</h2>
+      <p>Slide the numbers. See what you're leaving on the table every single month — and what it costs to stop the bleeding.</p>
+    </div>
+
+    <div class="calc-card reveal">
+      <div class="calc-inputs">
+        <div class="calc-field">
+          <label>Monthly Website Visitors</label>
+          <input type="range" id="calcVisitors" min="500" max="50000" step="500" value="5000" oninput="updateCalc()">
+          <div class="calc-value" id="calcVisitorsVal">5,000</div>
+          <div class="calc-value-sub">visitors per month</div>
+        </div>
+        <div class="calc-field">
+          <label>Your Average Deal Value</label>
+          <input type="range" id="calcDeal" min="100" max="25000" step="100" value="2000" oninput="updateCalc()">
+          <div class="calc-value" id="calcDealVal">$2,000</div>
+          <div class="calc-value-sub">per closed sale</div>
+        </div>
+      </div>
+
+      <div class="calc-divider"></div>
+
+      <div class="calc-results">
+        <div class="calc-result-item">
+          <span class="calc-result-number" id="calcIdentified">1,500</span>
+          <span class="calc-result-label">Visitors Identified</span>
+        </div>
+        <div class="calc-result-item">
+          <span class="calc-result-number" id="calcLeads">15</span>
+          <span class="calc-result-label">Deals Closed (1%)</span>
+        </div>
+        <div class="calc-result-item">
+          <span class="calc-result-number" id="calcRevenue">$30K</span>
+          <span class="calc-result-label">New Revenue / Month</span>
+        </div>
+      </div>
+
+      <div class="calc-punchline">
+        <div class="calc-punchline-big">ALL FOR LESS THAN A NIGHT OUT WITH THE FAMILY.</div>
+        <p>Your Dapper ID investment is a fraction of what you'd spend on dinner, bowling, and ice cream. <strong>Except this pays you back — every single month.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- WHO IT'S FOR -->
 <section>
   <div class="verticals-section">
@@ -1110,6 +1321,31 @@
   }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
 
   reveals.forEach(el => observer.observe(el));
+
+  // ROI Calculator
+  function updateCalc() {
+    const visitors = parseInt(document.getElementById('calcVisitors').value);
+    const deal = parseInt(document.getElementById('calcDeal').value);
+
+    const identified = Math.round(visitors * 0.30);
+    const deals = Math.max(1, Math.round(identified * 0.01));
+    const revenue = deals * deal;
+
+    document.getElementById('calcVisitorsVal').textContent = visitors.toLocaleString();
+    document.getElementById('calcDealVal').textContent = '$' + deal.toLocaleString();
+    document.getElementById('calcIdentified').textContent = identified.toLocaleString();
+    document.getElementById('calcLeads').textContent = deals.toLocaleString();
+
+    if (revenue >= 1000000) {
+      document.getElementById('calcRevenue').textContent = '$' + (revenue / 1000000).toFixed(1) + 'M';
+    } else if (revenue >= 1000) {
+      document.getElementById('calcRevenue').textContent = '$' + Math.round(revenue / 1000) + 'K';
+    } else {
+      document.getElementById('calcRevenue').textContent = '$' + revenue.toLocaleString();
+    }
+  }
+
+  updateCalc();
 
   // Visitor feed animation
   const rows = document.querySelectorAll('.visitor-row');
